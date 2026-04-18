@@ -3,15 +3,25 @@ package com.ejemplo;
 public class Destinos {
 
     private String nombre;
-    String tipo;   
-    int pasajeros;
-    boolean disponible;
+    private String tipo;   
+    private int pasajeros;
+    private boolean disponible;
     
+    public Destinos() {
+    }
+
+    public Destinos(String nombre, String tipo, int pasajeros, boolean disponible) {
+        this.nombre = nombre;
+        this.tipo = tipo;
+        this.pasajeros = pasajeros;
+        this.disponible = disponible;
+    }
+
     public String getNombre() {
         return nombre;
     }
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        this.nombre = nombre.toUpperCase();
     }
     public String getTipo() {
         return tipo;
