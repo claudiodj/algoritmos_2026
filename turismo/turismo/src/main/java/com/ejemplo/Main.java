@@ -6,6 +6,12 @@ import java.time.format.DateTimeParseException;
 import java.util.LinkedList;
 import java.util.Scanner;
 
+import com.ejemplo.modelo.Clientes;
+import com.ejemplo.modelo.Destinos;
+
+import com.ejemplo.servicio.ClientesServicios;
+import com.ejemplo.servicio.impl.ClientesServiciosImpl;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -29,7 +35,7 @@ public class Main {
             // Procesar la opción seleccionada por el usuario
             switch (opcion) {
                 case 1:
-                    Clientes cli = registrarCliente(); // Lógica para registrar un cliente
+                    Clientes cli = Main.registrarCliente(); // Lógica para registrar un cliente
                     listaClientes.add(cli);
                     break;
                 case 2:
@@ -101,7 +107,8 @@ public class Main {
 
         cliente.setFechaNacimiento(fechaNac);
 
-        System.out.println("Edad del cliente: " + cliente.getEdad());
+        ClientesServicios clientesServicios = new ClientesServiciosImpl();
+        System.out.println("Edad del cliente: " + clientesServicios.calcularEdad(cliente));
 
         System.out.println("Datos del cliente: " + cliente.toString());
         // scanner.close();
