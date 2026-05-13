@@ -26,7 +26,7 @@ public class Clientes {
     }
 
     public String getNombre() {
-        return nombre;
+        return "mi nombre es: " + nombre;
     }
 
     public void setNombre(String nombre) {
@@ -73,12 +73,13 @@ public class Clientes {
         this.fechaNacimiento = fechaNacimiento;
     }
 
+
     @Override
     public String toString() {
         return "Clientes [nombre=" + nombre + ", apellido=" + apellido + ", email=" + email + ", telefono=" + telefono
                 + ", dni=" + dni + ", fechaNacimiento=" + fechaNacimiento + "]";
     }
-    
+
     // Método útil: formatear fecha
     public String getFechaFormateada() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
