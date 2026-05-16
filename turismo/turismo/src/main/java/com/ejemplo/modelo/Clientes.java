@@ -1,10 +1,12 @@
 package com.ejemplo.modelo;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 
-public class Clientes {
+public class Clientes implements Serializable {
+
 
     private String nombre;
     private String apellido;

@@ -1,6 +1,8 @@
 package com.ejemplo.modelo;
 
-public class Destinos {
+import java.io.Serializable;
+
+public class Destinos implements Serializable {
 
     private String nombre;
     private String tipo;   

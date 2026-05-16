@@ -6,7 +6,6 @@ public class Reservas {
 
     private Clientes cliente;
     private Destinos destino;
-    private LocalDate fechaViaje;
     private LocalDate fechaReserva;
     private int numeroReserva;
     private int precio;
@@ -15,11 +14,10 @@ public class Reservas {
     public Reservas() {
     }
 
-    public Reservas(Clientes cliente, Destinos destino, LocalDate fechaViaje, LocalDate fechaReserva, int numeroReserva,
+    public Reservas(Clientes cliente, Destinos destino, LocalDate fechaReserva, int numeroReserva,
             int precio, boolean pagada) {
         this.cliente = cliente;
         this.destino = destino;
-        this.fechaViaje = fechaViaje;
         this.fechaReserva = fechaReserva;
         this.numeroReserva = numeroReserva;
         this.precio = precio;
@@ -40,14 +38,6 @@ public class Reservas {
 
     public void setDestino(Destinos destino) {
         this.destino = destino;
-    }
-
-    public LocalDate getFechaViaje() {
-        return fechaViaje;
-    }
-
-    public void setFechaViaje(LocalDate fechaViaje) {
-        this.fechaViaje = fechaViaje;
     }
 
     public LocalDate getFechaReserva() {
@@ -84,8 +74,7 @@ public class Reservas {
 
     @Override
     public String toString() {
-        return "Reservas [cliente=" + cliente + ", destino=" + destino + ", fechaViaje=" + fechaViaje
-                + ", fechaReserva=" + fechaReserva + ", numeroReserva=" + numeroReserva + ", precio=" + precio
+        return "Reservas [cliente=" + cliente + ", destino=" + destino + ", fechaReserva=" + fechaReserva + ", numeroReserva=" + numeroReserva + ", precio=" + precio
                 + ", pagada=" + pagada + "]";
     }
 
