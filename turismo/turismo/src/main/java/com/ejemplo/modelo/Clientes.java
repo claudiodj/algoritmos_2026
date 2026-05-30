@@ -28,7 +28,7 @@ public class Clientes implements Serializable {
     }
 
     public String getNombre() {
-        return "mi nombre es: " + nombre;
+        return nombre;
     }
 
     public void setNombre(String nombre) {

@@ -7,10 +7,14 @@ import java.time.format.DateTimeParseException;
 import java.util.LinkedList;
 import java.util.Scanner;
 
+import javax.swing.SwingUtilities;
+
+import com.ejemplo.gui.MainFrame;
 import com.ejemplo.modelo.Clientes;
 import com.ejemplo.modelo.Destinos;
 
 import com.ejemplo.servicio.ClientesServicios;
+import com.ejemplo.servicio.DestinosServicios;
 import com.ejemplo.servicio.impl.ClientesServiciosImpl;
 
 public class Main {
@@ -22,10 +26,30 @@ public class Main {
         // Se crea una lista para almacenar los destinos registrados
         LinkedList<Destinos> listaDestinos = new LinkedList<>();
 
+        // Se crea una lista para almacenar las reservas realizadas
+        LinkedList<String> listaReservas = new LinkedList<>();
+
+        // Se crea una lista para almacenar los viajes realizados
+        LinkedList<String> listaViajes = new LinkedList<>();
+
         // Se crea una instancia de ClientesServicios para manejar las operaciones
         // relacionadas con los clientes
         ClientesServicios clientesServicios = new ClientesServiciosImpl();
 
+        // Se crea una instancia de DestinosServicios para manejar las operaciones relacionadas
+        // con los destinos
+        DestinosServicios destinosServicios = new DestinosServiciosImpl();
+
+/* 
+        SwingUtilities.invokeLater(() -> {
+
+            MainFrame ventana =
+                    new MainFrame();
+
+            ventana.setVisible(true);
+        });
+
+*/
         int opcion;
 
         do {
@@ -53,6 +77,19 @@ public class Main {
                 case 4:
                     mostrarDestinos(listaDestinos); // Lógica para mostrar destinos
                     break;
+                case 5:
+                    System.out.println("Buscar Cliente por DNI:");
+                    System.out.print("Ingrese el DNI del cliente a buscar: ");
+                    int dni = scanner.nextInt();
+                    Clientes clienteEncontrado = clientesServicios.buscarClientePorDni(listaClientes, dni);
+                    if (clienteEncontrado != null) {
+                        System.out.println("Cliente encontrado: " + clienteEncontrado.toString());
+                    } else {
+                        System.out.println("Cliente no encontrado.");
+                    }
+                    break;
+                
+                
                 case 88:
                     guardarDatos(listaClientes, listaDestinos);
                     break;
@@ -109,6 +146,7 @@ public class Main {
         System.out.println("2. Mostrar clientes");
         System.out.println("3. Registrar destino");
         System.out.println("4. Mostrar destinos");
+        System.out.println("5. Buscar cliente por DNI");
         System.out.println("88. Guardar datos a archivos");
         System.out.println("99. Leer datos de archivos");
         System.out.println("0. Salir");

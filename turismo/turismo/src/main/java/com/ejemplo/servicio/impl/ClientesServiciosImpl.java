@@ -20,8 +20,16 @@ public class ClientesServiciosImpl implements ClientesServicios{
 
     @Override
     public Clientes buscarClientePorDni(LinkedList<Clientes> listaClientes, int dni) {
-        // Implementación del método
-        return null;
+        Clientes clienteEncontrado = null;
+        if (!listaClientes.isEmpty()) {
+            for (Clientes cliente : listaClientes) {
+                if (cliente.getDni() == dni) {
+                    clienteEncontrado = cliente;
+                    break;
+                }
+            }
+        }
+        return clienteEncontrado;
     }
 
     @Override
