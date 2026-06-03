@@ -1,14 +1,21 @@
 package com.ejemplo.gui;
 
 import javax.swing.*;
+
+import com.ejemplo.Main;
+import com.ejemplo.modelo.Clientes;
+import com.ejemplo.modelo.Destinos;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.LinkedList;
 
 public class MainFrame extends JFrame {
 
-    private JTextField txtId;
-    private JTextField txtNombre;
+    //private JTextField txtId;
+    //private JTextField txtNombre;
     private JTextArea areaResultado;
+    
 
     //private EstudianteService service;
 
@@ -29,29 +36,55 @@ public class MainFrame extends JFrame {
 
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(6, 2));
-/* 
-        panel.add(new JLabel("ID:"));
-        txtId = new JTextField();
-        panel.add(txtId);
 
-        panel.add(new JLabel("Nombre:"));
-        txtNombre = new JTextField();
-        panel.add(txtNombre);
-*/
+        // Creamos un JTextArea para mostrar los resultados de las operaciones
+        areaResultado = new JTextArea();
+        JScrollPane scroll = new JScrollPane(areaResultado);
+
+        add(panel, BorderLayout.NORTH);
+        add(scroll, BorderLayout.CENTER);
+
+        // -------------------------- BOTONES REGISTRAR Y LISTAR CLIENTES -------------------------
         // Agregamos los botones para registrar y listar clientes
         JButton btnRegistrarCli = new JButton("Registrar Cliente");
         JButton btnListarCli = new JButton("Listar Clientes");
         // Agregamos al panel los botones registrar y listar clientes        
         panel.add(btnRegistrarCli);
         panel.add(btnListarCli);
+        // Algoritmo para abrir la ventana de registro de clientes al hacer clic en el botón "Registrar Cliente"
+        btnRegistrarCli.addActionListener(e -> {
+            ClientesFrame ventanaCliFrame = new ClientesFrame();
+            ventanaCliFrame.setVisible(true);
+        });
+        // Algoritmo para mostrar la lista de clientes al hacer clic en el botón "Listar Clientes"
+        btnListarCli.addActionListener(e -> {
+            areaResultado.setText("Lista de Clientes:\n");
+            for (Clientes cliente : Main.listaClientes) {
+                areaResultado.append(cliente.toString() + "\n");
+            }
+        });
 
+        // -------------------------- BOTONES REGISTRAR Y LISTAR DESTINOS -------------------------
         // Agregamos los botones para registrar y listar destinos
         JButton btnRegistrarDes = new JButton("Registrar Destino");
         JButton btnListarDes = new JButton("Listar Destinos");
         // Agregamos al panel los botones registrar y listar destinos        
         panel.add(btnRegistrarDes);
         panel.add(btnListarDes);
+        // Algoritmo para abrir la ventana de registro de destinos al hacer clic en el botón "Registrar Destino"
+        btnRegistrarDes.addActionListener(e -> {
+            DestinosFrame ventanaDesFrame = new DestinosFrame();
+            ventanaDesFrame.setVisible(true);
+        });
+        // Algoritmo para mostrar la lista de destinos al hacer clic en el botón "Listar Destinos"
+        btnListarDes.addActionListener(e -> {
+            areaResultado.setText("Lista de Destinos:\n");
+            for (Destinos destino : Main.listaDestinos) {
+                areaResultado.append(destino.toString() + "\n");
+            }
+        });
 
+        // -------------------------- BOTONES REGISTRAR Y LISTAR RESERVAS -------------------------
         // Agregamos los botones para registrar y listar reservas
         JButton btnRegistrarRes = new JButton("Registrar Reserva");
         JButton btnListarRes = new JButton("Listar Reservas");
@@ -59,6 +92,7 @@ public class MainFrame extends JFrame {
         panel.add(btnRegistrarRes);
         panel.add(btnListarRes);
 
+        // -------------------------- BOTONES REGISTRAR Y LISTAR VIAJES -------------------------
         // Agregamos los botones para registrar y listar viajes
         JButton btnRegistrarVia = new JButton("Registrar Viaje");
         JButton btnListarVia = new JButton("Listar Viajes");
@@ -66,69 +100,26 @@ public class MainFrame extends JFrame {
         panel.add(btnRegistrarVia);
         panel.add(btnListarVia);
 
+        // ------------------------- BOTON SALIR -------------------------
+        // Agregamos el botón para salir del programa
+        JButton btnSalir = new JButton("Salir");
+        panel.add(btnSalir);
+        // Algoritmo para salir del programa al hacer clic en el botón "Salir"
+        btnSalir.addActionListener(e -> {
+        System.out.println("Saliendo del sistema...");
+        System.exit(0);
+        });
 
-        areaResultado = new JTextArea();
-        JScrollPane scroll =
-                new JScrollPane(areaResultado);
+        // ------------------------- BOTON GUARDAR -------------------------
+        // Agregamos un botón para guardar los datos antes de salir
+        JButton btnGuardar = new JButton("Guardar Datos");  
+        panel.add(btnGuardar);
+        // Algoritmo para guardar los datos al hacer clic en el botón "Guardar Datos"
+        btnGuardar.addActionListener(e -> {
+            Main.guardarDatos(Main.listaClientes, Main.listaDestinos, Main.listaReservas, Main.listaViajes);
+            areaResultado.setText("Datos guardados exitosamente.");
+        });
 
-        add(panel, BorderLayout.NORTH);
-        add(scroll, BorderLayout.CENTER);
-
-        //btnRegistrar.addActionListener(this::registrarEstudiante);
-
-        //btnBuscar.addActionListener(this::buscarEstudiante);
-    }
-/* 
-    private void registrarEstudiante(
-            ActionEvent e) {
-
-        try {
-
-            int id =
-                    Integer.parseInt(txtId.getText());
-
-            String nombre =
-                    txtNombre.getText();
-
-            //service.registrarEstudiante(id,nombre);
-
-            areaResultado.append(
-                    "Estudiante registrado\n");
-
-        } catch (Exception ex) {
-
-            areaResultado.append(
-                    "Error al registrar\n");
-        }
     }
 
-    private void buscarEstudiante(
-            ActionEvent e) {
-
-        try {
-
-            int id =
-                    Integer.parseInt(txtId.getText());
-
-            //Estudiante estudiante = service.buscarEstudiante(id);
-            
-            if (estudiante != null) {
-
-                areaResultado.append(
-                        estudiante.toString()
-                                + "\n");
-
-            } else {
-
-                areaResultado.append(
-                        "No encontrado\n");
-            }
-
-        } catch (Exception ex) {
-
-            areaResultado.append(
-                    "Error en búsqueda\n");
-        }
-    }
-*/
 }

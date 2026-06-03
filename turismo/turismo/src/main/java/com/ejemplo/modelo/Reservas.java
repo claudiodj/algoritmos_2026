@@ -1,8 +1,9 @@
 package com.ejemplo.modelo;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Reservas {
+public class Reservas implements Serializable {
 
     private Clientes cliente;
     private Destinos destino;

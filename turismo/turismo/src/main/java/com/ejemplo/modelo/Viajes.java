@@ -1,9 +1,10 @@
 package com.ejemplo.modelo;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Viajes {
+public class Viajes implements Serializable {
 
     private Destinos destino; 
     private ArrayList<Clientes> clientes; 

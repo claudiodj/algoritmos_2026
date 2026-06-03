@@ -1,9 +1,6 @@
 package com.ejemplo;
 
 import java.io.*;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -12,25 +9,33 @@ import javax.swing.SwingUtilities;
 import com.ejemplo.gui.MainFrame;
 import com.ejemplo.modelo.Clientes;
 import com.ejemplo.modelo.Destinos;
-
+import com.ejemplo.modelo.Reservas;
+import com.ejemplo.modelo.Viajes;
 import com.ejemplo.servicio.ClientesServicios;
 import com.ejemplo.servicio.DestinosServicios;
+import com.ejemplo.servicio.ReservasServicios;
+import com.ejemplo.servicio.ViajesServicios;
 import com.ejemplo.servicio.impl.ClientesServiciosImpl;
+import com.ejemplo.servicio.impl.DestinosServiciosImpl;
+import com.ejemplo.servicio.impl.ReservasServiciosImpl;
+import com.ejemplo.servicio.impl.ViajesServiciosImpl;
 
 public class Main {
+
+    // Se crea una lista para almacenar los clientes registrados
+    // Se la declara como public static final 
+    public static final LinkedList<Clientes> listaClientes = new LinkedList<>();
+    
+    // Se crea una lista para almacenar los destinos registrados
+    public static final LinkedList<Destinos> listaDestinos = new LinkedList<>();
+    
+    // Se crea una lista para almacenar las reservas realizadas
+    public static final LinkedList<Reservas> listaReservas = new LinkedList<>();
+    
+    // Se crea una lista para almacenar los viajes realizados
+    public static final LinkedList<Viajes> listaViajes = new LinkedList<>();
+
     public static void main(String[] args) {
-
-        // Se crea una lista para almacenar los clientes registrados
-        LinkedList<Clientes> listaClientes = new LinkedList<>();
-
-        // Se crea una lista para almacenar los destinos registrados
-        LinkedList<Destinos> listaDestinos = new LinkedList<>();
-
-        // Se crea una lista para almacenar las reservas realizadas
-        LinkedList<String> listaReservas = new LinkedList<>();
-
-        // Se crea una lista para almacenar los viajes realizados
-        LinkedList<String> listaViajes = new LinkedList<>();
 
         // Se crea una instancia de ClientesServicios para manejar las operaciones
         // relacionadas con los clientes
@@ -40,16 +45,27 @@ public class Main {
         // con los destinos
         DestinosServicios destinosServicios = new DestinosServiciosImpl();
 
-/* 
+        // Se crea una instancia de ReservasServicios para manejar las operaciones relacionadas
+        // con las reservas
+        ReservasServicios reservasServicios = new ReservasServiciosImpl();
+
+        // Se crea una instancia de ViajesServicios para manejar las operaciones relacionadas
+        // con los viajes
+        ViajesServicios viajesServicios = new ViajesServiciosImpl();
+
+        // Recupero de archivos los datos previamente guardados (si existen)
+        leerDatos(listaClientes, listaDestinos, listaReservas, listaViajes);
+        
+        // Iniciamos la interfaz gráfica en el hilo de eventos de Swing
         SwingUtilities.invokeLater(() -> {
 
-            MainFrame ventana =
-                    new MainFrame();
+            MainFrame ventana = new MainFrame();
 
             ventana.setVisible(true);
         });
 
-*/
+        // Trabajamos con el menú de opciones en la consola para registrar y mostrar clientes, destinos, reservas y viajes
+        /* 
         int opcion;
 
         do {
@@ -71,11 +87,11 @@ public class Main {
                     clientesServicios.mostrarClientes(listaClientes); // Lógica para mostrar clientes
                     break;
                 case 3:
-                    Destinos dest = registrarDestino(); // Lógica para registrar un destino
+                    Destinos dest = destinosServicios.registrarDestino(); // Lógica para registrar un destino
                     listaDestinos.add(dest);
                     break;
                 case 4:
-                    mostrarDestinos(listaDestinos); // Lógica para mostrar destinos
+                    destinosServicios.mostrarDestinos(listaDestinos); // Lógica para mostrar destinos
                     break;
                 case 5:
                     System.out.println("Buscar Cliente por DNI:");
@@ -89,12 +105,8 @@ public class Main {
                     }
                     break;
                 
-                
                 case 88:
-                    guardarDatos(listaClientes, listaDestinos);
-                    break;
-                case 99:
-                    leerDatos(listaClientes, listaDestinos);
+                    guardarDatos(listaClientes, listaDestinos, listaReservas, listaViajes);
                     break;
                 case 0:
                     System.out.println("Saliendo del sistema...");
@@ -104,41 +116,10 @@ public class Main {
                     System.out.println("Opción no válida. Intente de nuevo.");
             }
         } while (opcion != 0);
+    */
     }
 
-    public static Destinos registrarDestino() {
-        Scanner scanner = new Scanner(System.in);
-
-        Destinos destino = new Destinos();
-        System.out.println("Ingrese el nombre del destino:");
-        String dato = scanner.nextLine();
-        destino.setNombre(dato);
-
-        System.out.println("Ingrese el tipo de destino:");
-        dato = scanner.nextLine();
-        destino.setTipo(dato);
-
-        System.out.println("Ingrese la cantidad de pasajeros:");
-        int pasajeros = scanner.nextInt();
-        destino.setPasajeros(pasajeros);
-
-        System.out.println("¿El destino está disponible? (true/false):");
-        boolean disponible = scanner.nextBoolean();
-        destino.setDisponible(disponible);
-
-        System.out.println("Datos del destino: " + destino.toString());
-        // scanner.close();
-        return destino;
-    }
-
-    public static void mostrarDestinos(LinkedList<Destinos> listaDestinos) {
-        System.out.println("Lista de destinos registrados:");
-
-        for (Destinos destino : listaDestinos) {
-            System.out.println(destino.toString());
-        }
-    }
-
+    /* 
     public static void mostrarMenu() {
         System.out.println("Menú Sistema de Turismo");
         System.out.println("-------------------------");
@@ -148,13 +129,12 @@ public class Main {
         System.out.println("4. Mostrar destinos");
         System.out.println("5. Buscar cliente por DNI");
         System.out.println("88. Guardar datos a archivos");
-        System.out.println("99. Leer datos de archivos");
         System.out.println("0. Salir");
         System.out.print("Seleccione una opción: ");
-
     }
-
-    public static void guardarDatos(LinkedList<Clientes> listaClientes, LinkedList<Destinos> listaDestinos) {
+    */
+    
+    public static void guardarDatos(LinkedList<Clientes> listaClientes, LinkedList<Destinos> listaDestinos, LinkedList<Reservas> listaReservas, LinkedList<Viajes> listaViajes) {
         String rutaDirectorio = "C:\\datos\\";
         File directorio = new File("C:\\datos");
         if (!directorio.exists()) {
@@ -162,10 +142,14 @@ public class Main {
         }
 
         try (ObjectOutputStream oosClientes = new ObjectOutputStream(new FileOutputStream(rutaDirectorio + "clientes.dat"));
-                ObjectOutputStream oosDestinos = new ObjectOutputStream(new FileOutputStream(rutaDirectorio + "destinos.dat"))) {
+                ObjectOutputStream oosDestinos = new ObjectOutputStream(new FileOutputStream(rutaDirectorio + "destinos.dat"));
+                ObjectOutputStream oosReservas = new ObjectOutputStream(new FileOutputStream(rutaDirectorio + "reservas.dat"));
+                ObjectOutputStream oosViajes = new ObjectOutputStream(new FileOutputStream(rutaDirectorio + "viajes.dat"))) {
 
             oosClientes.writeObject(listaClientes);
             oosDestinos.writeObject(listaDestinos);
+            oosReservas.writeObject(listaReservas);
+            oosViajes.writeObject(listaViajes);
             System.out.println("Datos guardados correctamente en: " + rutaDirectorio);
 
         } catch (IOException e) {
@@ -174,20 +158,31 @@ public class Main {
     }
 
     @SuppressWarnings("unchecked")
-    public static void leerDatos(LinkedList<Clientes> listaClientes, LinkedList<Destinos> listaDestinos) {
+    public static void leerDatos(LinkedList<Clientes> listaClientes, LinkedList<Destinos> listaDestinos, LinkedList<Reservas> listaReservas, LinkedList<Viajes> listaViajes) {
         String rutaDirectorio = "C:\\datos\\";
         
         try (ObjectInputStream oisClientes = new ObjectInputStream(new FileInputStream(rutaDirectorio + "clientes.dat"));
-                ObjectInputStream oisDestinos = new ObjectInputStream(new FileInputStream(rutaDirectorio + "destinos.dat"))) {
+                ObjectInputStream oisDestinos = new ObjectInputStream(new FileInputStream(rutaDirectorio + "destinos.dat"));
+                ObjectInputStream oisReservas = new ObjectInputStream(new FileInputStream(rutaDirectorio + "reservas.dat"));
+                ObjectInputStream oisViajes = new ObjectInputStream(new FileInputStream(rutaDirectorio + "viajes.dat"))
+            ) {
 
             LinkedList<Clientes> clientesCargados = (LinkedList<Clientes>) oisClientes.readObject();
             LinkedList<Destinos> destinosCargados = (LinkedList<Destinos>) oisDestinos.readObject();
+            LinkedList<Reservas> reservasCargadas = (LinkedList<Reservas>) oisReservas.readObject();
+            LinkedList<Viajes> viajesCargados = (LinkedList<Viajes>) oisViajes.readObject();
 
             listaClientes.clear();
             listaClientes.addAll(clientesCargados);
 
             listaDestinos.clear();
             listaDestinos.addAll(destinosCargados);
+
+            listaReservas.clear();
+            listaReservas.addAll(reservasCargadas);
+
+            listaViajes.clear();
+            listaViajes.addAll(viajesCargados);
 
             System.out.println("Datos cargados correctamente desde: " + rutaDirectorio);
 
