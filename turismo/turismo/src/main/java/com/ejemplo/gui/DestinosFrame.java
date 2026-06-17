@@ -1,18 +1,26 @@
 package com.ejemplo.gui;
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import com.ejemplo.Main;
 import com.ejemplo.modelo.Destinos;
 import com.ejemplo.servicio.impl.DestinosServiciosImpl;
 
-import java.awt.*;
-import java.util.LinkedList;
-
 public class DestinosFrame extends JFrame {
 
     // Declaración de componentes
     private JTextField txtNombre;
-    private JTextField txtTipo;
+    private JComboBox<String> cmbTipo;
     private JTextField txtPasajeros;
     private JCheckBox chkDisponible;
 
@@ -27,8 +35,9 @@ public class DestinosFrame extends JFrame {
     private void configurarVentana() {
         setTitle("Destinos");
         setSize(400, 300);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(null);
+        //setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        setLocationRelativeTo(null);        
     }
 
     private void inicializarComponentes() {
@@ -42,15 +51,15 @@ public class DestinosFrame extends JFrame {
         txtNombre = new JTextField();
         panelFormulario.add(txtNombre);
 
-        panelFormulario.add(new JLabel("Tipo:"));
-        txtTipo = new JTextField();
-        panelFormulario.add(txtTipo);
+        panelFormulario.add(new JLabel("Tipo:", SwingConstants.CENTER));
+        cmbTipo = new JComboBox<>(new String[] {"Internacional", "Nacional", "Escapada"});
+        panelFormulario.add(cmbTipo);
 
-        panelFormulario.add(new JLabel("Pasajeros:"));
+        panelFormulario.add(new JLabel("Pasajeros:", SwingConstants.CENTER));
         txtPasajeros = new JTextField();
         panelFormulario.add(txtPasajeros);
 
-        panelFormulario.add(new JLabel("Disponible:"));
+        panelFormulario.add(new JLabel("Disponible:", SwingConstants.CENTER));
         chkDisponible = new JCheckBox();
         panelFormulario.add(chkDisponible);
 
@@ -69,7 +78,14 @@ public class DestinosFrame extends JFrame {
 
         btnGuardar.addActionListener(e -> guardarDestino());
 
-        btnVolver.addActionListener(e -> dispose());
+        btnVolver.addActionListener(e -> volver());
+    }
+
+        private void volver() {
+            this.dispose(); // Cierra la ventana actual
+            
+            MainFrame ventanaPrincipal = new MainFrame();
+            ventanaPrincipal.setVisible(true); // Abre la ventana principal
     }
 
         private void guardarDestino() {
@@ -77,7 +93,7 @@ public class DestinosFrame extends JFrame {
         try {
 
             String nombre = txtNombre.getText().trim();
-            String tipo = txtTipo.getText().trim();
+            String tipo = (String) cmbTipo.getSelectedItem();
 
             int pasajeros = Integer.parseInt(
                     txtPasajeros.getText().trim());
@@ -98,6 +114,7 @@ public class DestinosFrame extends JFrame {
             JOptionPane.showMessageDialog(
                     this,
                     "Destino guardado correctamente");
+                    txtPasajeros.setBackground(java.awt.Color.WHITE);
 
             limpiarFormulario();
 
@@ -108,6 +125,9 @@ public class DestinosFrame extends JFrame {
                     "La cantidad de pasajeros debe ser numérica",
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
+                    txtPasajeros.setText("");
+                    txtPasajeros.setBackground(java.awt.Color.YELLOW);
+                    txtPasajeros.requestFocus();
 
         } catch (Exception ex) {
 
@@ -116,13 +136,13 @@ public class DestinosFrame extends JFrame {
                     ex.getMessage(),
                     "Error",
                     JOptionPane.ERROR_MESSAGE);
-        }
+                    }
     }
 
     private void limpiarFormulario() {
 
         txtNombre.setText("");
-        txtTipo.setText("");
+        //txtTipo.setText("");
         txtPasajeros.setText("");
         chkDisponible.setSelected(false);
 

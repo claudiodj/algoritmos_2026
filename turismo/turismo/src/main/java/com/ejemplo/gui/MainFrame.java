@@ -1,14 +1,17 @@
 package com.ejemplo.gui;
 
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 import com.ejemplo.Main;
 import com.ejemplo.modelo.Clientes;
 import com.ejemplo.modelo.Destinos;
-
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.util.LinkedList;
 
 public class MainFrame extends JFrame {
 
@@ -55,6 +58,8 @@ public class MainFrame extends JFrame {
         btnRegistrarCli.addActionListener(e -> {
             ClientesFrame ventanaCliFrame = new ClientesFrame();
             ventanaCliFrame.setVisible(true);
+            //this.setVisible(false);
+            this.dispose();
         });
         // Algoritmo para mostrar la lista de clientes al hacer clic en el botón "Listar Clientes"
         btnListarCli.addActionListener(e -> {
@@ -75,6 +80,8 @@ public class MainFrame extends JFrame {
         btnRegistrarDes.addActionListener(e -> {
             DestinosFrame ventanaDesFrame = new DestinosFrame();
             ventanaDesFrame.setVisible(true);
+            //this.setVisible(false);
+            this.dispose();
         });
         // Algoritmo para mostrar la lista de destinos al hacer clic en el botón "Listar Destinos"
         btnListarDes.addActionListener(e -> {

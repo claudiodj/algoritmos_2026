@@ -90,4 +90,9 @@ public class ClientesServiciosImpl implements ClientesServicios{
         return cliente;
     }
 
+    @Override
+    public void agregarCliente(Clientes cliente, LinkedList<Clientes> listaclientes) {
+        listaclientes.add(cliente);
+        System.out.println("Cliente agregado exitosamente.");}
+
 }
