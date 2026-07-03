@@ -12,6 +12,7 @@ import javax.swing.JTextArea;
 import com.ejemplo.Main;
 import com.ejemplo.modelo.Clientes;
 import com.ejemplo.modelo.Destinos;
+import com.ejemplo.modelo.Reservas;
 
 public class MainFrame extends JFrame {
 
@@ -98,6 +99,19 @@ public class MainFrame extends JFrame {
         // Agregamos al panel los botones registrar y listar reservas        
         panel.add(btnRegistrarRes);
         panel.add(btnListarRes);
+        // Algoritmo para abrir la ventana de registro de reservas al hacer clic en el botón "Registrar Reserva"
+        btnRegistrarRes.addActionListener(e -> {
+            ReservasFrame ventanaResFrame = new ReservasFrame();
+            ventanaResFrame.setVisible(true);
+            this.dispose();
+        });
+        // Algoritmo para mostrar la lista de reservas al hacer clic en el botón "Listar Reservas"
+        btnListarRes.addActionListener(e -> {
+            areaResultado.setText("Lista de Reservas:\n");
+            for (Reservas reserva : Main.listaReservas) {
+                areaResultado.append(reserva.toString() + "\n");
+            }
+        });
 
         // -------------------------- BOTONES REGISTRAR Y LISTAR VIAJES -------------------------
         // Agregamos los botones para registrar y listar viajes

@@ -1,11 +1,17 @@
 package com.ejemplo;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.LinkedList;
-import java.util.Scanner;
 
 import javax.swing.SwingUtilities;
 
+import com.ejemplo.DAO.ClientesDAO;
 import com.ejemplo.gui.MainFrame;
 import com.ejemplo.modelo.Clientes;
 import com.ejemplo.modelo.Destinos;
@@ -56,6 +62,10 @@ public class Main {
         // Recupero de archivos los datos previamente guardados (si existen)
         leerDatos(listaClientes, listaDestinos, listaReservas, listaViajes);
         
+        // Recupero de la base de datos los datos previamente guardados (si existen)
+        ClientesDAO clientesDAO = new ClientesDAO();
+        listaClientes.addAll(clientesDAO.obtenerClientes());
+
         // Iniciamos la interfaz gráfica en el hilo de eventos de Swing
         SwingUtilities.invokeLater(() -> {
 
@@ -64,75 +74,7 @@ public class Main {
             ventana.setVisible(true);
         });
 
-        // Trabajamos con el menú de opciones en la consola para registrar y mostrar clientes, destinos, reservas y viajes
-        /* 
-        int opcion;
-
-        do {
-            Scanner scanner = new Scanner(System.in);
-
-            // Mostrar el menú de opciones al usuario
-            mostrarMenu();
-
-            opcion = scanner.nextInt();
-            scanner.nextLine(); // Consumir el salto de línea pendiente
-
-            // Procesar la opción seleccionada por el usuario
-            switch (opcion) {
-                case 1:
-                    Clientes cli = clientesServicios.registrarCliente(); // Lógica para registrar un cliente
-                    listaClientes.add(cli);
-                    break;
-                case 2:
-                    clientesServicios.mostrarClientes(listaClientes); // Lógica para mostrar clientes
-                    break;
-                case 3:
-                    Destinos dest = destinosServicios.registrarDestino(); // Lógica para registrar un destino
-                    listaDestinos.add(dest);
-                    break;
-                case 4:
-                    destinosServicios.mostrarDestinos(listaDestinos); // Lógica para mostrar destinos
-                    break;
-                case 5:
-                    System.out.println("Buscar Cliente por DNI:");
-                    System.out.print("Ingrese el DNI del cliente a buscar: ");
-                    int dni = scanner.nextInt();
-                    Clientes clienteEncontrado = clientesServicios.buscarClientePorDni(listaClientes, dni);
-                    if (clienteEncontrado != null) {
-                        System.out.println("Cliente encontrado: " + clienteEncontrado.toString());
-                    } else {
-                        System.out.println("Cliente no encontrado.");
-                    }
-                    break;
-                
-                case 88:
-                    guardarDatos(listaClientes, listaDestinos, listaReservas, listaViajes);
-                    break;
-                case 0:
-                    System.out.println("Saliendo del sistema...");
-                    scanner.close();
-                    System.exit(0);
-                default:
-                    System.out.println("Opción no válida. Intente de nuevo.");
-            }
-        } while (opcion != 0);
-    */
     }
-
-    /* 
-    public static void mostrarMenu() {
-        System.out.println("Menú Sistema de Turismo");
-        System.out.println("-------------------------");
-        System.out.println("1. Registrar cliente");
-        System.out.println("2. Mostrar clientes");
-        System.out.println("3. Registrar destino");
-        System.out.println("4. Mostrar destinos");
-        System.out.println("5. Buscar cliente por DNI");
-        System.out.println("88. Guardar datos a archivos");
-        System.out.println("0. Salir");
-        System.out.print("Seleccione una opción: ");
-    }
-    */
     
     public static void guardarDatos(LinkedList<Clientes> listaClientes, LinkedList<Destinos> listaDestinos, LinkedList<Reservas> listaReservas, LinkedList<Viajes> listaViajes) {
         String rutaDirectorio = "C:\\datos\\";

@@ -7,6 +7,7 @@ import java.time.format.DateTimeParseException;
 import java.util.LinkedList;
 import java.util.Scanner;
 
+import com.ejemplo.DAO.ClientesDAO;
 import com.ejemplo.modelo.Clientes;
 import com.ejemplo.servicio.ClientesServicios;
 
@@ -92,7 +93,9 @@ public class ClientesServiciosImpl implements ClientesServicios{
 
     @Override
     public void agregarCliente(Clientes cliente, LinkedList<Clientes> listaclientes) {
+        int idCliente = new ClientesDAO().insertarCliente(cliente);
+        cliente.setIdCliente(idCliente); // Establece el ID del cliente después de la inserción
         listaclientes.add(cliente);
-        System.out.println("Cliente agregado exitosamente.");}
+        System.out.println("Cliente agregado exitosamente con el id: " + idCliente);}
 
 }

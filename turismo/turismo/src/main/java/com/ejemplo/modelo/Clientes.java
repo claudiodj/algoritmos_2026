@@ -2,12 +2,11 @@ package com.ejemplo.modelo;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.Period;
 import java.time.format.DateTimeFormatter;
 
 public class Clientes implements Serializable {
 
-
+    private int idCliente; // Atributo para almacenar el ID del cliente
     private String nombre;
     private String apellido;
     private String email;
@@ -18,7 +17,9 @@ public class Clientes implements Serializable {
     public Clientes() {
     }
 
-    public Clientes(String nombre, String apellido, String email, String telefono, int dni, LocalDate fechaNacimiento) {
+    public Clientes(int idCliente, String nombre, String apellido, String email, String telefono, int dni, LocalDate fechaNacimiento) {
+        
+        this.idCliente = idCliente;
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
@@ -27,6 +28,14 @@ public class Clientes implements Serializable {
         this.fechaNacimiento = fechaNacimiento;
     }
 
+    public int getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
+    }
+    
     public String getNombre() {
         return nombre;
     }
@@ -75,10 +84,9 @@ public class Clientes implements Serializable {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-
     @Override
     public String toString() {
-        return "Clientes [nombre=" + nombre + ", apellido=" + apellido + ", email=" + email + ", telefono=" + telefono
+        return "Clientes [idCliente=" + idCliente + ", nombre=" + nombre + ", apellido=" + apellido + ", email=" + email + ", telefono=" + telefono
                 + ", dni=" + dni + ", fechaNacimiento=" + fechaNacimiento + "]";
     }
 
@@ -87,5 +95,5 @@ public class Clientes implements Serializable {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return fechaNacimiento.format(formatter);
     }
-    
+  
 }   

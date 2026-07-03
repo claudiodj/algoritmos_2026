@@ -116,7 +116,7 @@ public class ClientesFrame extends JFrame {
                 return;
             }
 
-            Clientes cliente = new Clientes(nombre, apellido, email, telefono, dni, fechaNac);
+            Clientes cliente = new Clientes(0, nombre, apellido, email, telefono, dni, fechaNac);
 
             // Aquí agrega el objeto cliente a la lista
             ClientesServiciosImpl servicios = new ClientesServiciosImpl();
