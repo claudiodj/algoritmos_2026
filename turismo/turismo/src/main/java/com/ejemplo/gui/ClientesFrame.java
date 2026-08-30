@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import com.ejemplo.Main;
+import com.ejemplo.control.ValidarDato;
 import com.ejemplo.modelo.Clientes;
 import com.ejemplo.servicio.impl.ClientesServiciosImpl;
 
@@ -113,6 +114,31 @@ public class ClientesFrame extends JFrame {
 
             if (nombre.isEmpty() || apellido.isEmpty() || email.isEmpty() || telefono.isEmpty() || txtDNI.getText().isEmpty() || fechaNacimiento.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (!ValidarDato.validarNombreApellido(nombre)) {
+                JOptionPane.showMessageDialog(this, "El nombre ingresado no es válido.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (!ValidarDato.validarNombreApellido(apellido)) {
+                JOptionPane.showMessageDialog(this, "El apellido ingresado no es válido.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (!ValidarDato.validarDNI(txtDNI.getText().trim())) {
+                JOptionPane.showMessageDialog(this, "El DNI ingresado no es válido.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (!ValidarDato.validarTelefono(telefono)) {
+                JOptionPane.showMessageDialog(this, "El teléfono ingresado no es válido.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (!ValidarDato.validarEmail(email)) {
+                JOptionPane.showMessageDialog(this, "El correo electrónico ingresado no es válido.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 

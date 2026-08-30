@@ -5,6 +5,6 @@ public class Configuracion{
     static final String BBDD_IP = "localhost";
     static final String BBDD_PUERTO = "3306";
     static final String BBDD_NOMBRE = "turismo";
-    static final String BBDD_USUARIO = "adminturismo";
-    static final String BBDD_PASSWORD = "adminturismo";
+    static final String BBDD_USUARIO = "root";
+    static final String BBDD_PASSWORD = "root";
 }

@@ -48,13 +48,16 @@ public class MainFrame extends JFrame {
         add(panel, BorderLayout.NORTH);
         add(scroll, BorderLayout.CENTER);
 
-        // -------------------------- BOTONES REGISTRAR Y LISTAR CLIENTES -------------------------
+        // -------------------------- BOTONES REGISTRAR, BORRAR Y LISTAR CLIENTES -------------------------
         // Agregamos los botones para registrar y listar clientes
         JButton btnRegistrarCli = new JButton("Registrar Cliente");
         JButton btnListarCli = new JButton("Listar Clientes");
+        JButton btnBorrarCli = new JButton("Borrar Cliente");
         // Agregamos al panel los botones registrar y listar clientes        
         panel.add(btnRegistrarCli);
         panel.add(btnListarCli);
+        panel.add(btnBorrarCli);
+
         // Algoritmo para abrir la ventana de registro de clientes al hacer clic en el botón "Registrar Cliente"
         btnRegistrarCli.addActionListener(e -> {
             ClientesFrame ventanaCliFrame = new ClientesFrame();
@@ -68,6 +71,13 @@ public class MainFrame extends JFrame {
             for (Clientes cliente : Main.listaClientes) {
                 areaResultado.append(cliente.toString() + "\n");
             }
+        });
+        // Algoritmo para borrar un cliente al hacer clic en el botón "Borrar Cliente"
+        btnBorrarCli.addActionListener(e -> {
+            ClienteBorrarFrame ventanaBorrarCliFrame = new ClienteBorrarFrame();
+            ventanaBorrarCliFrame.setVisible(true);
+            this.dispose();
+            //areaResultado.setText("Cliente borrado exitosamente.\n");
         });
 
         // -------------------------- BOTONES REGISTRAR Y LISTAR DESTINOS -------------------------

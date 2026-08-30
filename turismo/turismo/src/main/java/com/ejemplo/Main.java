@@ -60,7 +60,7 @@ public class Main {
         ViajesServicios viajesServicios = new ViajesServiciosImpl();
 
         // Recupero de archivos los datos previamente guardados (si existen)
-        leerDatos(listaClientes, listaDestinos, listaReservas, listaViajes);
+        //leerDatos(listaClientes, listaDestinos, listaReservas, listaViajes);
         
         // Recupero de la base de datos los datos previamente guardados (si existen)
         ClientesDAO clientesDAO = new ClientesDAO();

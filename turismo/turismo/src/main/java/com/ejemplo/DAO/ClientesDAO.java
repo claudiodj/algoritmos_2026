@@ -38,6 +38,20 @@ public class ClientesDAO {
         return idCliente; // Retorna el ID del cliente insertado
     }
 
+    public static boolean borrarClientePorId(int idCliente) {
+        String sql = "DELETE FROM clientes WHERE idCliente = ?";
+        try (var conexion = new ConectarBase().conectar();  
+             var preparedStatement = conexion.prepareStatement(sql)) {
+            
+            preparedStatement.setInt(1, idCliente);
+            int affectedRows = preparedStatement.executeUpdate();
+            return affectedRows > 0; // Retorna true si se borró al menos un registro
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false; // Retorna false en caso de error
+        }
+    }
+
     public LinkedList<Clientes> obtenerClientes() {
         LinkedList<Clientes> listaClientes = new LinkedList<>();
         String sql = "SELECT * FROM clientes";
