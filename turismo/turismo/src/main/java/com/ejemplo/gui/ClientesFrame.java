@@ -1,5 +1,6 @@
 package com.ejemplo.gui;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -117,8 +118,12 @@ public class ClientesFrame extends JFrame {
                 return;
             }
 
+            txtNombre.setBackground(Color.WHITE); // Restablece el color de fondo del JTextField
+
             if (!ValidarDato.validarNombreApellido(nombre)) {
                 JOptionPane.showMessageDialog(this, "El nombre ingresado no es válido.", "Error", JOptionPane.ERROR_MESSAGE);
+                txtNombre.requestFocus();
+                txtNombre.setBackground(Color.YELLOW); // Cambia el color de fondo del JTextField a amarillo
                 return;
             }
 
