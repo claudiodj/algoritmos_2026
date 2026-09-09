@@ -12,7 +12,7 @@ import java.util.LinkedList;
 import javax.swing.SwingUtilities;
 
 import com.ejemplo.DAO.ClientesDAO;
-import com.ejemplo.gui.MainFrame;
+import com.ejemplo.gui.LoginFrame;
 import com.ejemplo.modelo.Clientes;
 import com.ejemplo.modelo.Destinos;
 import com.ejemplo.modelo.Reservas;
@@ -69,7 +69,8 @@ public class Main {
         // Iniciamos la interfaz gráfica en el hilo de eventos de Swing
         SwingUtilities.invokeLater(() -> {
 
-            MainFrame ventana = new MainFrame();
+            //MainFrame ventana = new MainFrame();
+            LoginFrame ventana = new LoginFrame();  
 
             ventana.setVisible(true);
         });

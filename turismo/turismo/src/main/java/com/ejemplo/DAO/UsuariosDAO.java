@@ -8,7 +8,7 @@ public class UsuariosDAO {
     public Usuarios leerUsuario(String nombreUsuario) {
         
         Usuarios usuario = new Usuarios();
-        String sql = "SELECT * FROM usuarios WHERE nombreUsuario = ?";
+        String sql = "SELECT * FROM usuarios WHERE usuario = ?";
         
         try {
             var conexion = new ConectarBase().conectar();
@@ -19,7 +19,7 @@ public class UsuariosDAO {
             
             if (resultSet.next()) {
                 int idUsuario = resultSet.getInt("idUsuario");
-                String claveUsuario = resultSet.getString("claveUsuario");
+                String claveUsuario = resultSet.getString("clave");
                 usuario.setIdUsuario(idUsuario);
                 usuario.setNombreUsuario(nombreUsuario);
                 usuario.setClaveUsuario(claveUsuario);
@@ -27,8 +27,7 @@ public class UsuariosDAO {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }
-            
+            }             
         return usuario; 
         }
     }

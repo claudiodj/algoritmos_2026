@@ -137,8 +137,11 @@ public class MainFrame extends JFrame {
         panel.add(btnSalir);
         // Algoritmo para salir del programa al hacer clic en el botón "Salir"
         btnSalir.addActionListener(e -> {
-        System.out.println("Saliendo del sistema...");
-        System.exit(0);
+            LoginFrame loginFrame = new LoginFrame();
+                loginFrame.setVisible(true);
+                this.dispose(); // Cierra la ventana de login
+        //System.out.println("Saliendo del sistema...");
+        //System.exit(0);
         });
 
         // ------------------------- BOTON GUARDAR -------------------------
